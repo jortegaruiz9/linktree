@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -22,18 +21,18 @@ export default function ProfileCard({
     <Card
       className={`w-11/12 mx-auto max-w-sm bg-black/70 text-white border-none ${className}`}
     >
-      <CardHeader className="space-y-1">
+      <CardHeader className="space-y-1 relative">
         <CardTitle className="text-3xl font-medium leading-7 w-1/2">
           {profile.name}
         </CardTitle>
         <CardDescription className="leading-4 text-white text-xs font-medium">
           {profile.username}
         </CardDescription>
-        <CardDescription className="leading-4 text-white/80 text-xs">
+        <CardDescription className="leading-4 text-white/80 text-xs text-pretty w-10/12">
           {profile.description}
         </CardDescription>
         {showAction && (
-          <CardAction>
+          <div className="absolute top-0 right-6">
             <Link
               href="/more"
               className="text-xs font-semibold"
@@ -41,7 +40,7 @@ export default function ProfileCard({
             >
               See Profile
             </Link>
-          </CardAction>
+          </div>
         )}
       </CardHeader>
       {showSocial && (

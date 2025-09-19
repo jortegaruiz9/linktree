@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { profile, social } from "@/lib/data/home";
+import { getProfileData } from "@/lib/data/home";
 import ProfileCard from "@/components/ProfileCard";
 
-export default function Home() {
+export default async function Home() {
+  // Obtener datos dinámicamente desde función centralizada
+  const { profile, social } = await getProfileData();
   return (
     <div className="w-full h-screen">
       <div className="w-full h-full">

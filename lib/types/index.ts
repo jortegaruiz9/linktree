@@ -18,6 +18,7 @@ export interface SocialLink {
 export interface Product {
   image: string;
   alt: string;
+  brand?: string;
 }
 
 // Hashtag related types
@@ -50,5 +51,10 @@ export interface ProductCarouselProps {
 
 export interface ReviewCardProps {
   review: Review;
+  className?: string;
+}
+
+export interface ReviewCarouselProps {
+  reviews: Review[];
   className?: string;
 }

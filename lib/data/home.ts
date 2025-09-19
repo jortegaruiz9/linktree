@@ -1,33 +1,40 @@
 import { Profile, SocialLink } from "@/lib/types";
+import { getHomeInfo } from "@/lib/get-home-info";
 
-export const profile: Profile = {
-  name: "Josebeth Amacoria",
-  username: "@josebethcamila",
-  description:
-    "Haz lo que puedas, con lo que tengas, donde estés. — Theodore Roosevelt",
-  image: "/img/hero.jpg",
-  alt: "Josebeth perfil",
-};
+// Función para obtener datos dinámicamente
+export async function getProfileData() {
+  const { title, user, description, instagram, linkedin, youtube, tiktok, image } = await getHomeInfo();
 
-export const social: SocialLink[] = [
-  {
-    name: "Instagram",
-    icon: "icon-[formkit--instagram]",
-    url: "https://www.instagram.com/josebethcamila?igsh=b3J1d3JrcXdheTJi&utm_source=qr",
-  },
-  {
-    name: "Linkedin",
-    icon: "icon-[akar-icons--linkedin-v2-fill]",
-    url: "https://www.linkedin.com/in/josebeth-amacoria-5b7275252?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-  },
-  {
-    name: "Youtube",
-    icon: "icon-[bi--youtube]",
-    url: "https://youtube.com/@josebethcamila?si=XErX0nIZ0pTNwbyK",
-  },
-  {
-    name: "TikTok",
-    icon: "icon-[ant-design--tik-tok-outlined]",
-    url: "https://www.tiktok.com/@josebeth_camila?_t=ZM-8yDBkC3FBq9&_r=1",
-  },
-];
+  const profile: Profile = {
+    name: title,
+    username: user,
+    description: description,
+    image: image,
+    alt: "image of background",
+  };
+
+  const social: SocialLink[] = [
+    {
+      name: "Instagram",
+      icon: "icon-[formkit--instagram]",
+      url: instagram,
+    },
+    {
+      name: "Linkedin",
+      icon: "icon-[akar-icons--linkedin-v2-fill]",
+      url: linkedin,
+    },
+    {
+      name: "Youtube",
+      icon: "icon-[bi--youtube]",
+      url: youtube,
+    },
+    {
+      name: "TikTok",
+      icon: "icon-[ant-design--tik-tok-outlined]",
+      url: tiktok,
+    },
+  ];
+
+  return { profile, social };
+}

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { profile } from "@/lib/data/home";
-import { hashtag, products, review } from "@/lib/data/more";
+import { getProfileData } from "@/lib/data/home";
+import { getMoreData } from "@/lib/data/more";
 import {
   Card,
   CardAction,
@@ -10,12 +10,17 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import ProductCarousel from "@/components/ProductCarousel";
 import HashtagList from "@/components/HashtagList";
-import ReviewCard from "@/components/ReviewCard";
+import ReviewCarousel from "@/components/ReviewCarousel";
 
-export default function More() {
+export default async function More() {
+  // Obtener datos dinámicamente desde función centralizada
+  const { profile } = await getProfileData();
+  const { hashtags, products, reviews } = await getMoreData();
+
   return (
     <div className="w-full h-screen bg-stone-200">
       <div className="w-full h-full">
@@ -43,7 +48,7 @@ export default function More() {
           </Link>
         </Button>
         <h4 className="text-center m-6 font-medium">{profile.username}</h4>
-        <Card className="w-11/12 h-[85%] mx-auto max-w-sm bg-black/80 text-white border-none">
+        <Card className="w-11/12 h-[85%] mx-auto max-w-sm bg-black/80 text-white border-none gap-0">
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-medium leading-7 w-1/2">
               {profile.name}
@@ -60,11 +65,13 @@ export default function More() {
               </Link>
             </CardAction>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <HashtagList hashtags={hashtag} />
+          <CardContent className="space-y-4 h-7/12  flex flex-col justify-center ">
+            <HashtagList hashtags={hashtags} />
             <ProductCarousel products={products} />
           </CardContent>
-          <ReviewCard review={review} />
+          <CardFooter className="h-3/12">
+            <ReviewCarousel reviews={reviews} />
+          </CardFooter>
         </Card>
       </div>
     </div>
