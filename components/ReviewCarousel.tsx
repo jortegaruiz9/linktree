@@ -50,7 +50,7 @@ export default function ReviewCarousel({
                 <div>
                   <p className="text-xs text-white/80">{review.description}</p>
                   <h2 className="text-sm mt-2">{review.name}</h2>
-                  <h4 className="text-xs text-white/80">{review.username}</h4>
+                  <h4 className="text-xs text-white/80">@{review.username}</h4>
                 </div>
               </div>
             </div>

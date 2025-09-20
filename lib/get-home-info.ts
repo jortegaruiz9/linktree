@@ -10,9 +10,8 @@ export function getHomeInfo(){
     return query("home?locale=es&populate=background", {}, CACHE_TAGS.HOME)
    .then(res => {
     const { title, user, description, instagram, linkedin, youtube, tiktok, background } = res.data;
-    // Add cache busting timestamp to force image refresh
-    const timestamp = new Date().getTime();
-    const image = `${STRAPI_BASE_URL}${background.url}?v=${timestamp}`;
+    // Use the original URL - cache busting will be handled by revalidation
+    const image = `${STRAPI_BASE_URL}${background.url}`;
     return { title, user, description, instagram, linkedin, youtube, tiktok, image };
    });
 }

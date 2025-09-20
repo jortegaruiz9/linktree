@@ -47,14 +47,14 @@ export default async function More() {
             <span className="icon-[proicons--arrow-left] text-lg"></span>
           </Link>
         </Button>
-        <h4 className="text-center m-6 font-medium">{profile.username}</h4>
+        <h4 className="text-center m-6 font-medium">@{profile.username}</h4>
         <Card className="w-11/12 h-[85%] mx-auto max-w-sm bg-black/80 text-white border-none gap-0">
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-medium leading-7 w-1/2">
               {profile.name}
             </CardTitle>
             <CardDescription className="leading-4 text-white text-xs font-medium">
-              {profile.username}
+              @{profile.username}
             </CardDescription>
             <CardDescription className="leading-4 text-white/80 text-xs">
               {profile.description}

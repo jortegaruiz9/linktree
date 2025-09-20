@@ -17,7 +17,6 @@ export default function ProductCarousel({
     <Carousel className={`w-full max-w-sm ${className}`}>
       <CarouselContent className="-ml-1">
         {products.map((product, index) => {
-          // Las primeras 3 imágenes son visibles inicialmente (basis-1/3 = 3 items visible)
           const isPriority = index < 3;
 
           return (

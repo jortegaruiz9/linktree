@@ -13,7 +13,7 @@ export default function HashtagList({ hashtags, className }: HashtagListProps) {
           key={`${hashtag.name}-${index}`}
           className="bg-white/10 rounded-full py-1"
         >
-          {hashtag.name}
+          #{hashtag.name}
         </li>
       ))}
     </ul>

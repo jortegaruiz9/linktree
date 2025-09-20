@@ -26,7 +26,7 @@ export default function ProfileCard({
           {profile.name}
         </CardTitle>
         <CardDescription className="leading-4 text-white text-xs font-medium">
-          {profile.username}
+          @{profile.username}
         </CardDescription>
         <CardDescription className="leading-4 text-white/80 text-xs text-pretty w-10/12">
           {profile.description}
