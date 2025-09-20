@@ -10,8 +10,10 @@ const STRAPI_BASE_URL = STRAPI_URL || 'http://localhost:1337';
 export function getReviews(): Promise<Review[]> {
     return query("reviews?locale=es&fields[0]=review&fields[1]=position&fields[2]=user&populate[logo][fields][0]=url", {}, CACHE_TAGS.REVIEWS)
    .then((res: { data: Array<{ review: string; position: string; user: string; logo: { url: string } }> }) => {
+    // Add cache busting timestamp to force image refresh
+    const timestamp = new Date().getTime();
     return res.data.map((review) => {
-        const image = `${STRAPI_BASE_URL}${review.logo.url}`;
+        const image = `${STRAPI_BASE_URL}${review.logo.url}?v=${timestamp}`;
         return {
             image,
             alt: review.position,

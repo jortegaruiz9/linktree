@@ -10,8 +10,10 @@ const STRAPI_BASE_URL = STRAPI_URL || 'http://localhost:1337';
 export function getGalleryProducts(): Promise<Product[]> {
   return query("products?fields[0]=brand&populate[Media][fields][0]=url", {}, CACHE_TAGS.PRODUCTS)
     .then((res: { data: Array<{ brand: string; Media: { url: string } }> }) => {
+      // Add cache busting timestamp to force image refresh
+      const timestamp = new Date().getTime();
       return res.data.map((item) => ({
-        image: `${STRAPI_BASE_URL}${item.Media.url}`,
+        image: `${STRAPI_BASE_URL}${item.Media.url}?v=${timestamp}`,
         alt: item.brand,
       }));
     });
