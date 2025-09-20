@@ -32,9 +32,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Temporarily log webhook data for debugging
+    console.log('🔍 Webhook received:', { secret, tag, tags, all, body });
+    
     if (!secret || secret !== REVALIDATE_SECRET) {
       return NextResponse.json(
-        { error: 'Invalid or missing secret' },
+        { error: 'Invalid or missing secret', receivedData: { secret, tag, tags, all } },
         { status: 401 }
       );
     }
