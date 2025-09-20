@@ -80,10 +80,14 @@ export async function POST(request: NextRequest) {
         );
       }
     } else {
-      return NextResponse.json(
-        { error: 'Missing tag, tags, or all parameter' },
-        { status: 400 }
-      );
+      // No specific tag provided - revalidate common content tags (for Strapi webhooks)
+      const commonTags = [CACHE_TAGS.HOME, CACHE_TAGS.HASHTAGS, CACHE_TAGS.PRODUCTS, CACHE_TAGS.REVIEWS];
+      for (const cacheTag of commonTags) {
+        revalidateTag(cacheTag);
+        revalidatedTags.push(cacheTag);
+      }
+      
+      console.log(`✅ Default revalidation for webhook: ${revalidatedTags.join(', ')}`);
     }
 
     console.log(`✅ Cache revalidated for tags: ${revalidatedTags.join(', ')}`);
