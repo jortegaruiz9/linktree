@@ -32,12 +32,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Temporarily log webhook data for debugging
-    console.log('🔍 Webhook received:', { secret, tag, tags, all, body });
+    // Check for secret in body OR in custom header (for Strapi webhooks)
+    const headerSecret = request.headers.get('x-webhook-secret') || request.headers.get('authorization')?.replace('Bearer ', '');
+    const actualSecret = secret || headerSecret;
     
-    if (!secret || secret !== REVALIDATE_SECRET) {
+    console.log('🔍 Webhook received:', { bodySecret: secret, headerSecret, actualSecret: actualSecret ? 'present' : 'missing' });
+    
+    if (!actualSecret || actualSecret !== REVALIDATE_SECRET) {
       return NextResponse.json(
-        { error: 'Invalid or missing secret', receivedData: { secret, tag, tags, all } },
+        { 
+          error: 'Invalid or missing secret', 
+          hint: 'Provide secret in body.secret, x-webhook-secret header, or Authorization header'
+        },
         { status: 401 }
       );
     }
