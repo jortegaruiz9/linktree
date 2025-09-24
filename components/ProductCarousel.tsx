@@ -38,7 +38,9 @@ export default function ProductCarousel({
                   className="w-full h-full object-cover rounded-md"
                   quality={isPriority ? 85 : 75}
                   priority={isPriority}
+                  loading={isPriority ? "eager" : "lazy"}
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+
                   placeholder="blur"
                 />
               </Card>
