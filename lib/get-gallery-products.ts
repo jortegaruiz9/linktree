@@ -1,19 +1,26 @@
 import { query } from "./strapi";
 import { Product } from "./types";
 import { CACHE_TAGS } from "./cacheTags";
-
-const { STRAPI_URL } = process.env;
-
-// Get the base URL for Strapi - consistent with strapi.ts
-const STRAPI_BASE_URL = STRAPI_URL || 'http://localhost:1337';
+import { buildStrapiImageUrl, isValidImageUrl } from "./image-utils";
 
 export function getGalleryProducts(): Promise<Product[]> {
   return query("products?fields[0]=brand&populate[Media][fields][0]=url", {}, CACHE_TAGS.PRODUCTS)
     .then((res: { data: Array<{ brand: string; Media: { url: string } }> }) => {
-      // Use the original URL - cache busting will be handled by revalidation
-      return res.data.map((item) => ({
-        image: `${STRAPI_BASE_URL}${item.Media.url}`,
-        alt: item.brand,
-      }));
+      return res.data
+        .map((item) => {
+          const imageUrl = buildStrapiImageUrl(item.Media.url);
+          
+          // Validate URL before returning
+          if (!isValidImageUrl(imageUrl)) {
+            console.warn(`Invalid image URL for product ${item.brand}: ${imageUrl}`);
+            return null;
+          }
+          
+          return {
+            image: imageUrl,
+            alt: item.brand,
+          };
+        })
+        .filter((product): product is Product => product !== null); // Remove invalid products
     });
 }
