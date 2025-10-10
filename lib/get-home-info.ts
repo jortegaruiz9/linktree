@@ -1,17 +1,13 @@
 import { query } from "./strapi";
 import { CACHE_TAGS } from "./cacheTags";
-
-const { STRAPI_URL } = process.env;
-
-// Get the base URL for Strapi - consistent with strapi.ts
-const STRAPI_BASE_URL = STRAPI_URL || 'http://localhost:1337';
+import { buildStrapiImageUrl } from "./image-utils";
 
 export function getHomeInfo(){
-    return query("home?locale=es&populate=background", {}, CACHE_TAGS.HOME)
+    return query("home?locale=es", {}, CACHE_TAGS.HOME)
    .then(res => {
-    const { title, user, description, instagram, linkedin, youtube, tiktok, background } = res.data;
-    // Use the original URL - cache busting will be handled by revalidation
-    const image = `${STRAPI_BASE_URL}${background.url}`;
+    const { title, user, description, instagram, linkedin, youtube, tiktok, backgroundUrl } = res.data;
+    // Use buildStrapiImageUrl to handle both Vercel Blob Storage URLs and Strapi paths
+    const image = buildStrapiImageUrl(backgroundUrl);
     return { title, user, description, instagram, linkedin, youtube, tiktok, image };
    });
 }

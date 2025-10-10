@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         hostname: "backend-linktree-1.onrender.com",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+        pathname: "/**",
+      },
     ],
   },
   experimental: {
