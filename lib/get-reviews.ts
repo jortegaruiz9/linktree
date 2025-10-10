@@ -13,7 +13,7 @@ export function getReviews(): Promise<Review[]> {
             image,
             alt: review.position,
             name: review.position,
-            username: `@${review.user}`,
+            username: `${review.user}`,
             description: review.review
         };
     });

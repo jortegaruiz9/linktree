@@ -126,3 +126,56 @@
     @apply bg-background text-foreground;
   }
 }
+
+.lynqea-word > span {
+  /* Base color in white with opacity */
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  user-select: none;
+  transition: color 0.5s, text-shadow 0.5s;
+}
+
+/* Updated animation selectors for individual letters */
+.lynqea-word > span:nth-child(1) {
+  /* Reduced duration from 5s to 4s for more noticeable animation */
+  animation: gray-pulse 4s ease-in-out infinite 0s;
+}
+.lynqea-word > span:nth-child(2) {
+  animation: gray-pulse 4s ease-in-out infinite 0.3s;
+}
+.lynqea-word > span:nth-child(3) {
+  animation: gray-pulse 4s ease-in-out infinite 0.6s;
+}
+.lynqea-word > span:nth-child(4) {
+  animation: gray-pulse 4s ease-in-out infinite 0.9s;
+}
+.lynqea-word > span:nth-child(5) {
+  animation: gray-pulse 4s ease-in-out infinite 1.2s;
+}
+.lynqea-word > span:nth-child(6) {
+  animation: gray-pulse 4s ease-in-out infinite 1.5s;
+}
+
+/* Grayscale pulse animation - from white to bright light gray */
+@keyframes gray-pulse {
+  0%,
+  100% {
+    /* Base white with opacity */
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+  30% {
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  70% {
+    color: rgba(220, 220, 220, 1);
+    text-shadow: 0 0 15px rgba(220, 220, 220, 0.7),
+      0 0 20px rgba(220, 220, 220, 0.4);
+  }
+}

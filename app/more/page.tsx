@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Lynqea from "@/components/lynqea";
 import { getProfileData } from "@/lib/data/home";
 import { getMoreData } from "@/lib/data/more";
 import {
@@ -65,12 +66,13 @@ export default async function More() {
               </Link>
             </CardAction>
           </CardHeader>
-          <CardContent className="space-y-4 h-7/12  flex flex-col justify-center ">
+          <CardContent className="space-y-4 h-7/12  flex flex-col justify-center">
             <HashtagList hashtags={hashtags} />
             <ProductCarousel products={products} />
           </CardContent>
-          <CardFooter className="h-3/12">
+          <CardFooter className="h-3/12 flex flex-col items-center justify-between">
             <ReviewCarousel reviews={reviews} />
+            <Lynqea />
           </CardFooter>
         </Card>
       </div>
